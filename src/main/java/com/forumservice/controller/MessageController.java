@@ -1,6 +1,8 @@
 package com.forumservice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.forumservice.domain.Message;
+import com.forumservice.domain.Views;
 import com.forumservice.repo.MessageRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ public class MessageController {
     }
 
     @GetMapping
+    @JsonView(Views.ShortMessage.class)
     public List<Message> list() {
         return messageRepo.findAll();
     }
