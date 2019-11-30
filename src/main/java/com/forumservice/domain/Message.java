@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "messages")
 @Data
 public class Message {
     @Id
@@ -16,6 +17,7 @@ public class Message {
     @JsonView(Views.ShortMessage.class)
     private Long id;
 
+    @NotNull
     @JsonView(Views.ShortMessage.class)
     private String text;
 
