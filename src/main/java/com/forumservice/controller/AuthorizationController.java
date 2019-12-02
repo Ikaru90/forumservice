@@ -5,10 +5,7 @@ import com.forumservice.domain.User;
 import com.forumservice.domain.Views;
 import com.forumservice.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/authorization")
@@ -23,6 +20,16 @@ public class AuthorizationController {
     @PostMapping("/login")
     @JsonView(Views.UserWithoutPassword.class)
     public User login(@RequestBody User user) {
+        User userFromDb = userRepo.findByUsername(user.getUsername());
+        if (userFromDb.getPassword().equals(user.getPassword())) {
+            return userFromDb;
+        }
+        return null;
+    }
+
+    @PostMapping("/userInfo")
+    @JsonView(Views.UserWithoutPassword.class)
+    public User getUserInfo(@RequestBody User user) {
         return userRepo.findByUsername(user.getUsername());
     }
 
