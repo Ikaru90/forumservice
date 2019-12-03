@@ -34,7 +34,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/registration")
-    @JsonView(Views.FullUser.class)
+    @JsonView(Views.UserWithoutPassword.class)
     public User registration(@RequestBody User user) {
         return userRepo.save(user);
     }
