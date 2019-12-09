@@ -30,6 +30,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-security")
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.postgresql:postgresql')
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.8.0'
 }
 
 test {
