@@ -1,6 +1,5 @@
 package com.forumservice.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.forumservice.model.Message;
 import com.forumservice.repository.MessageRepo;
 import org.springframework.beans.BeanUtils;
