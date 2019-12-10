@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,6 +42,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Date date = Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
+        user.setCreated(date);
+        user.setUpdated(date);
 
         User registeredUser = userRepository.save(user);
 
