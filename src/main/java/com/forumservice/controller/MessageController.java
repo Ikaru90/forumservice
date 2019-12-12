@@ -1,7 +1,7 @@
 package com.forumservice.controller;
 
 import com.forumservice.model.Message;
-import com.forumservice.repository.MessageRepo;
+import com.forumservice.repository.MessageRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +12,16 @@ import java.util.List;
 @RestController
 @RequestMapping("api/message")
 public class MessageController {
-    private final MessageRepo messageRepo;
+    private final MessageRepository messageRepository;
 
     @Autowired
-    public MessageController(MessageRepo messageRepo) {
-        this.messageRepo = messageRepo;
+    public MessageController(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
     }
 
     @GetMapping
     public List<Message> list() {
-        return messageRepo.findAll();
+        return messageRepository.findAll();
     }
 
     @GetMapping("{id}")
@@ -32,7 +32,7 @@ public class MessageController {
     @PostMapping
     public Message create(@RequestBody Message message) {
         message.setCreationDate(LocalDateTime.now());
-        return messageRepo.save(message);
+        return messageRepository.save(message);
     }
 
     @PutMapping("{id}")
@@ -42,11 +42,11 @@ public class MessageController {
     ) {
         BeanUtils.copyProperties(message, messageFromDb, "id");
 
-        return messageRepo.save(messageFromDb);
+        return messageRepository.save(messageFromDb);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Message message) {
-        messageRepo.delete(message);
+        messageRepository.delete(message);
     }
 }
